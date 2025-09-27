@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBiUVXNItU35egP7kOh7QutMXIE-kPjNxU',
-    appId: '1:1006911383008:android:5f3abe8563b3182b2b3785',
-    messagingSenderId: '1006911383008',
-    projectId: 'foodiease-e7106',
-    storageBucket: 'foodiease-e7106.firebasestorage.app',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
   );
 }
