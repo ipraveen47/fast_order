@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:fast_order/core/useCase/usecase.dart';
 import 'package:fast_order/features/order/domain/entity/cart_model.dart';
 import 'package:fast_order/features/order/domain/entity/placed_order_model.dart';
@@ -31,15 +30,15 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   /// 🔑 Clears all transient messages after showing SnackBars in UI
-  void clearMessages() {
-    emit(
-      state.copyWith(
-        errorMessage: null,
-        successMessage: null,
-        placeOrderMessage: null,
-      ),
-    );
-  }
+  // void clearMessages() {
+  //   emit(
+  //     state.copyWith(
+  //       errorMessage: null,
+  //       successMessage: null,
+  //       placeOrderMessage: null,
+  //     ),
+  //   );
+  // }
 
   Future<void> _getPlacedOrders(
     GetPlacedOrdersEvent event,
@@ -93,7 +92,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
     try {
       final res = await addToCartUsecase(AddToCartParams(event.cartItem));
-      log("Raw result from usecase: $res");
 
       res.fold(
         (failure) => emit(

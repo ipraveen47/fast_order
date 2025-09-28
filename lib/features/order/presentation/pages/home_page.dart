@@ -1,6 +1,7 @@
 import 'package:fast_order/core/local_data/product.dart';
 import 'package:fast_order/features/order/presentation/pages/details.dart';
 import 'package:fast_order/features/order/presentation/widgets/product_card.dart';
+import 'package:fast_order/features/order/presentation/widgets/vertical_list.dart';
 import 'package:fast_order/widget_support/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool icecream = false, pizza = false, salad = false, burger = false;
 
-  // Sample product list (could be fetched from API later)
   final List<Product> products = [
     Product(
       imagePath: "assets/salad2.png",
@@ -36,14 +36,45 @@ class _HomePageState extends State<HomePage> {
       deliveryTime: "20 min",
       id: '',
     ),
+    Product(
+      imagePath: "assets/drink.png",
+      title: "Cold Coffee",
+      subtitle: "With Ice Cream",
+      price: 20.0,
+      description:
+          "Refreshing cold coffee topped with vanilla ice cream for a perfect treat.",
+      deliveryTime: "10 min",
+      id: '',
+    ),
+    Product(
+      imagePath: "assets/fries.png",
+      title: "French Fries",
+      subtitle: "Crispy & Golden",
+      price: 15.0,
+      description: "Crispy golden fries served hot with tangy tomato ketchup.",
+      deliveryTime: "8 min",
+      id: '',
+    ),
+    Product(
+      imagePath: "assets/smoothie.",
+      title: "Berry Smoothie",
+      subtitle: "Fresh & Chilled",
+      price: 22.0,
+      description:
+          "A refreshing blend of strawberries, blueberries, and yogurt for a healthy drink.",
+      deliveryTime: "12 min",
+      id: '',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Container(
-          margin: const EdgeInsets.only(top: 50.0, left: 20.0),
+          margin: const EdgeInsets.only(top: 50.0, left: 15.0, right: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -53,7 +84,6 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text("Hello User,", style: AppWidget.boldTextFeildStyle()),
                   Container(
-                    margin: const EdgeInsets.only(right: 20.0),
                     padding: const EdgeInsets.all(3),
                     decoration: BoxDecoration(
                       color: Colors.black,
@@ -76,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 child: showItem(),
               ),
 
-              const SizedBox(height: 30.0),
+              const SizedBox(height: 20.0),
 
               /// PRODUCT HORIZONTAL LIST
               SizedBox(
@@ -100,10 +130,36 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
+              const SizedBox(height: 4),
 
-              const SizedBox(height: 30.0),
-
-              /// ADD YOUR OTHER SECTIONS HERE (Vertical List, etc.)
+              /// FIXED: PRODUCT VERTICAL LIST
+              ///
+              Text(
+                'Recent Items',
+                style: AppWidget.semiBoldTextFeildStyle().copyWith(
+                  fontSize: 18,
+                ),
+              ),
+              ListView.builder(
+                itemCount: products.length,
+                shrinkWrap: true, // ✅ tells ListView to size itself to children
+                physics:
+                    const NeverScrollableScrollPhysics(), // ✅ prevents nested scroll conflicts
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return VerticalList(
+                    product: product,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Details(products: product),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),

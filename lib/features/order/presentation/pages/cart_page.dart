@@ -46,25 +46,29 @@ class _CartPageState extends State<CartPage> {
         elevation: 0,
       ),
       body: BlocConsumer<OrderBloc, OrderState>(
+        listenWhen: (previous, current) {
+          // Only listen when messages actually change
+          return previous.successMessage != current.successMessage ||
+              previous.errorMessage != current.errorMessage ||
+              previous.placeOrderMessage != current.placeOrderMessage;
+        },
         listener: (context, state) {
-          /// Show error only once
           if (state.errorMessage != null) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
-            Future.delayed(const Duration(milliseconds: 300), () {
-              context.read<OrderBloc>().clearMessages();
-            });
           }
 
-          /// Show order success only once
           if (state.successMessage != null) {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.successMessage!)));
-            Future.delayed(const Duration(milliseconds: 300), () {
-              context.read<OrderBloc>().clearMessages();
-            });
+          }
+
+          if (state.placeOrderMessage != null) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.placeOrderMessage!)));
           }
         },
         builder: (context, state) {
