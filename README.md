@@ -51,6 +51,13 @@ Git installed (Install Git)
 <img width="416" height="943" alt="image" src="https://github.com/user-attachments/assets/ee703d0b-47a5-4f68-a0d4-83d34cfe7c9e" />
 <img width="420" height="832" alt="image" src="https://github.com/user-attachments/assets/3780f845-0c13-4e80-9fa5-af6b4d86882f" />
 
+**packages used**
+1. Flutter Bloc : for bloc implementation
+2. fpdart : functional Programmign
+3. firebase : to store the order
+4. bloc_test : for testing bloc
+   
+
 
 
 
